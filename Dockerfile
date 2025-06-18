@@ -1,6 +1,6 @@
 ARG VERSION_ARG="latest"
 FROM scratch AS build-amd64
-WORKDIR /usr/src/app
+
 COPY --from=qemux/qemu:7.12 / /
 
 ARG DEBCONF_NOWARNINGS="yes"
@@ -31,11 +31,12 @@ FROM build-${TARGETARCH}
 ARG VERSION_ARG="0.00"
 RUN echo "$VERSION_ARG" > /run/version
 
+VOLUME ./windows:/storage
 EXPOSE 3389 8006
 
-ENV VERSION="10"
-ENV RAM_SIZE="32G"
-ENV CPU_CORES="6"
-ENV DISK_SIZE="500G"
+ENV VERSION="11"
+ENV RAM_SIZE="4G"
+ENV CPU_CORES="2"
+ENV DISK_SIZE="64G"
 
 ENTRYPOINT ["/usr/bin/tini", "-s", "/run/entry.sh"]
