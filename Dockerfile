@@ -1,6 +1,6 @@
 ARG VERSION_ARG="latest"
 FROM scratch AS build-amd64
-Workdir /usr/src/app
+WORKDIR /usr/src/app
 COPY --from=qemux/qemu:7.12 / /
 
 ARG DEBCONF_NOWARNINGS="yes"
