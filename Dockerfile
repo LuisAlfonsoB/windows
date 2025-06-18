@@ -7,6 +7,19 @@ ARG DEBCONF_NOWARNINGS="yes"
 ARG DEBIAN_FRONTEND="noninteractive"
 ARG DEBCONF_NONINTERACTIVE_SEEN="true"
 
+RUN set -eu && \
+    apt-get update && \
+    apt-get --no-install-recommends -y install \
+        samba \
+        wimtools \
+        dos2unix \
+        cabextract \
+        libxml2-utils \
+        libarchive-tools \
+        netcat-openbsd && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 COPY --chmod=755 ./src /run/
 COPY --chmod=755 ./assets /run/assets
 
