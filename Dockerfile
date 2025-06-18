@@ -1,6 +1,6 @@
 ARG VERSION_ARG="latest"
 FROM scratch AS build-amd64
-
+Workdir /usr/src/app
 COPY --from=qemux/qemu:7.12 / /
 
 ARG DEBCONF_NOWARNINGS="yes"
@@ -31,7 +31,6 @@ FROM build-${TARGETARCH}
 ARG VERSION_ARG="0.00"
 RUN echo "$VERSION_ARG" > /run/version
 
-VOLUME .\\host.lan\Data
 EXPOSE 3389 8006
 
 ENV VERSION="10"
